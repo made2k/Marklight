@@ -149,6 +149,12 @@ public struct Marklight {
      Color used to highlight markdown syntax. Default value is light grey.
      */
     public static var syntaxColor = MarklightColor.lightGray
+
+    /**
+     Color used to high light links.
+     */
+    public static var linkColor = MarklightColor.blue
+    public static var clickableLinks = false
     
     /**
      Font used for blocks and inline code. Default value is *Menlo*.
@@ -238,7 +244,7 @@ public struct Marklight {
             .font : hiddenFont,
             .foregroundColor : hiddenColor
         ]
-        
+
         func hideSyntaxIfNecessary(range: @autoclosure () -> NSRange) {
             guard Marklight.hideSyntax else { return }
             
@@ -319,8 +325,9 @@ public struct Marklight {
             
             Marklight.coupleRoundRegex.matches(string, range: range) { (innerResult) -> Void in
                 guard let innerRange = innerResult?.range else { return }
-                styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: innerRange)
-                
+                // trailing `)`
+                styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: innerRange)
+
                 var _range = innerRange
                 _range.location = range.location + 1
                 _range.length = range.length - 2
@@ -329,20 +336,23 @@ public struct Marklight {
                 guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
                 
                 destinationLink = substring
-                styleApplier.addAttribute(.link, value: substring, range: _range)
-                
+                if clickableLinks {
+                    styleApplier.addAttribute(.link, value: substring, range: _range)
+                }
+
                 hideSyntaxIfNecessary(range: innerRange)
             }
             
             Marklight.openingSquareRegex.matches(string, range: range) { (innerResult) -> Void in
                 guard let innerRange = innerResult?.range else { return }
-                styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: innerRange)
+                // Opening `[`
+                styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: innerRange)
                 hideSyntaxIfNecessary(range: innerRange)
             }
             
             Marklight.closingSquareRegex.matches(string, range: range) { (innerResult) -> Void in
                 guard let innerRange = innerResult?.range else { return }
-                styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: innerRange)
+                styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: innerRange)
                 hideSyntaxIfNecessary(range: innerRange)
             }
             
@@ -356,8 +366,11 @@ public struct Marklight {
                 
                 let substring = textStorageNSString.substring(with: _range)
                 guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
-                
-                styleApplier.addAttribute(.link, value: destinationLinkString, range: _range)
+
+              styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: innerRange)
+                if clickableLinks {
+                    styleApplier.addAttribute(.link, value: destinationLinkString, range: _range)
+                }
             }
         }
         
@@ -515,8 +528,11 @@ public struct Marklight {
             guard let range = result?.range else { return }
             let substring = textStorageNSString.substring(with: range)
             guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
-            styleApplier.addAttribute(.link, value: substring, range: range)
-            
+            styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: range)
+            if clickableLinks {
+                styleApplier.addAttribute(.link, value: substring, range: range)
+            }
+
             if Marklight.hideSyntax {
                 Marklight.autolinkPrefixRegex.matches(string, range: range) { (innerResult) -> Void in
                     guard let innerRange = innerResult?.range else { return }
@@ -531,8 +547,12 @@ public struct Marklight {
             guard let range = result?.range else { return }
             let substring = textStorageNSString.substring(with: range)
             guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
-            styleApplier.addAttribute(.link, value: substring, range: range)
-            
+
+            styleApplier.addAttribute(.foregroundColor, value: Marklight.linkColor, range: range)
+            if clickableLinks {
+                styleApplier.addAttribute(.link, value: substring, range: range)
+            }
+
             if Marklight.hideSyntax {
                 Marklight.mailtoRegex.matches(string, range: range) { (innerResult) -> Void in
                     guard let innerRange = innerResult?.range else { return }

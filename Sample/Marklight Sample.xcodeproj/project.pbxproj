@@ -37,7 +37,7 @@
 		95C46D9C1C33E7F40070AEDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95C46D9F1C33E7F40070AEDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95C46DA11C33E7F40070AEDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		95F6691C1C33E86E0046634D /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		95F6691C1C33E86E0046634D /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		95F6691D1C33EA870046634D /* Sample.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = Sample.md; sourceTree = SOURCE_ROOT; };
 		9A3D30D47F46F43946225A6B /* Pods_Marklight_Marklight_Sample.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Marklight_Marklight_Sample.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4A0500258753356FDA71127 /* Pods-Marklight-Marklight Sample macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Marklight-Marklight Sample macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Marklight-Marklight Sample macOS/Pods-Marklight-Marklight Sample macOS.debug.xcconfig"; sourceTree = "<group>"; };
@@ -148,7 +148,6 @@
 				500DC55A1F1F54DA00FE8C3E /* Frameworks */,
 				500DC55B1F1F54DA00FE8C3E /* Resources */,
 				ACE49F946C06224520571535 /* [CP] Embed Pods Frameworks */,
-				38F87CDBAA10CE613D23B83A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,7 +167,6 @@
 				95C46D8F1C33E7F40070AEDC /* Frameworks */,
 				95C46D901C33E7F40070AEDC /* Resources */,
 				C4907E0A4C0DF1DFF82912CE /* [CP] Embed Pods Frameworks */,
-				EA0B9ADA2E55E4CF07CDE369 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -244,21 +242,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38F87CDBAA10CE613D23B83A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Marklight-Marklight Sample macOS/Pods-Marklight-Marklight Sample macOS-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4A6FDF0524CCED5164F49259 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -329,21 +312,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Marklight-Marklight Sample/Pods-Marklight-Marklight Sample-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EA0B9ADA2E55E4CF07CDE369 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Marklight-Marklight Sample/Pods-Marklight-Marklight Sample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
