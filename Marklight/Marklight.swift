@@ -145,6 +145,9 @@
  - see: `MarklightTextStorage`
  */
 public struct Marklight {
+
+    internal static var textColor = MarklightColor.black
+
     /**
      Color used to highlight markdown syntax. Default value is light grey.
      */
@@ -250,6 +253,8 @@ public struct Marklight {
             
             styleApplier.addAttributes(hiddenAttributes, range: range())
         }
+
+        styleApplier.addAttribute(.foregroundColor, value: textColor, range: wholeRange)
         
         // We detect and process underlined headers
         Marklight.headersSetextRegex.matches(string, range: wholeRange) { (result) -> Void in

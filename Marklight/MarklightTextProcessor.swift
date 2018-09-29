@@ -17,6 +17,8 @@ open class MarklightTextProcessor {
 
     // MARK: Syntax highlight customisation
 
+    open var textColor = MarklightColor.black
+
     /**
      Color used to highlight markdown syntax. Default value is light grey.
      */
@@ -77,6 +79,7 @@ open class MarklightTextProcessor {
         Marklight.textSize = textSize
         Marklight.hideSyntax = hideSyntax
         Marklight.linkColor = linkColor
+        Marklight.textColor = textColor
 
         resetMarklightAttributes(
             styleApplier: styleApplier,

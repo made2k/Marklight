@@ -119,6 +119,15 @@ class ViewController: UIViewController, UITextViewDelegate {
         print("Should interact with: \(URL)")
         return true
     }
+
+  var changeCount = 0
+  func textViewDidChange(_ textView: UITextView) {
+    changeCount += 1
+    if changeCount % 10 == 0 {
+
+      textStorage.marklightTextProcessor.textColor = textStorage.marklightTextProcessor.textColor == .black ? .red : .black
+    }
+  }
     
     func scrollToCaret(_ textView: UITextView, animated: Bool) {
         var rect = textView.caretRect(for: textView.selectedTextRange!.end)
