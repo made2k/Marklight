@@ -27,6 +27,8 @@ open class MarklightTextProcessor {
      */
     open var codeFontName = "Menlo"
 
+    open var linkColor = UIColor.blue
+
     /**
      `MarklightColor` used for blocks and inline code. Default value is dark grey.
      */
@@ -74,6 +76,7 @@ open class MarklightTextProcessor {
         Marklight.quoteIndendation = quoteIndendation
         Marklight.textSize = textSize
         Marklight.hideSyntax = hideSyntax
+        Marklight.linkColor = linkColor
 
         resetMarklightAttributes(
             styleApplier: styleApplier,

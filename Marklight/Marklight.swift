@@ -148,48 +148,48 @@ public struct Marklight {
     /**
      Color used to highlight markdown syntax. Default value is light grey.
      */
-    public static var syntaxColor = MarklightColor.lightGray
+    internal static var syntaxColor = MarklightColor.lightGray
 
     /**
      Color used to high light links.
      */
-    public static var linkColor = MarklightColor.blue
+    internal static var linkColor = MarklightColor.blue
     public static var clickableLinks = false
     
     /**
      Font used for blocks and inline code. Default value is *Menlo*.
      */
-    public static var codeFontName = "Menlo"
+    internal static var codeFontName = "Menlo"
     
     /**
      Color used for blocks and inline code. Default value is dark grey.
      */
-    public static var codeColor = MarklightColor.darkGray
+    internal static var codeColor = MarklightColor.darkGray
     
     /**
      Font used for quote blocks. Default value is *Menlo*.
      */
-    public static var quoteFontName = "Menlo"
+    internal static var quoteFontName = "Menlo"
     
     /**
      Color used for quote blocks. Default value is dark grey.
      */
-    public static var quoteColor = MarklightColor.darkGray
+    internal static var quoteColor = MarklightColor.darkGray
     
     /**
      Quote indentation in points. Default 20.
      */
-    public static var quoteIndendation : CGFloat = 20
+    internal static var quoteIndendation : CGFloat = 20
     
     /**
      If the markdown syntax should be hidden or visible
      */
-    public static var hideSyntax = false
+    internal static var hideSyntax = false
     
     /**
      Text size measured in points.
      */
-    public static var textSize: CGFloat = MarklightFont.systemFontSize
+    internal static var textSize: CGFloat = MarklightFont.systemFontSize
     
     // We transform the user provided `codeFontName` `String` to a `NSFont`
     fileprivate static func codeFont(_ size: CGFloat) -> MarklightFont {
@@ -297,7 +297,7 @@ public struct Marklight {
         // We detect and process anchors (links)
         Marklight.anchorRegex.matches(string, range: paragraphRange) { (result) -> Void in
             guard let range = result?.range else { return }
-            styleApplier.addAttribute(.font, value: codeFont, range: range)
+            // styleApplier.addAttribute(.font, value: codeFont, range: range)
             Marklight.openingSquareRegex.matches(string, range: range) { (innerResult) -> Void in
                 guard let innerRange = innerResult?.range else { return }
                 styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: innerRange)
@@ -319,7 +319,7 @@ public struct Marklight {
         // We detect and process inline anchors (links)
         Marklight.anchorInlineRegex.matches(string, range: paragraphRange) { (result) -> Void in
             guard let range = result?.range else { return }
-            styleApplier.addAttribute(.font, value: codeFont, range: range)
+            // styleApplier.addAttribute(.font, value: codeFont, range: range)
             
             var destinationLink : String?
             
