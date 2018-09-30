@@ -40,9 +40,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         layoutManager.addTextContainer(textContainer)
         
         textView = UITextView(frame: view.bounds, textContainer: textContainer)
-        textView?.dataDetectorTypes = []
-        textView?.linkTextAttributes = [:]
-
         guard let textView = textView else { return }
         
         textView.frame = view.bounds
@@ -73,8 +70,9 @@ class ViewController: UIViewController, UITextViewDelegate {
                 let string = try String(contentsOfFile: samplePath)
                 // Convert string to an `NSAttributedString`
                 let attributedString = NSAttributedString(string: string)
+                
                 // Set the loaded string to the `UITextView`
-                //textStorage.append(attributedString)
+                textStorage.append(attributedString)
             } catch _ {
                 print("Cannot read Sample.md file")
             }
@@ -119,15 +117,6 @@ class ViewController: UIViewController, UITextViewDelegate {
         print("Should interact with: \(URL)")
         return true
     }
-
-  var changeCount = 0
-  func textViewDidChange(_ textView: UITextView) {
-    changeCount += 1
-    if changeCount % 10 == 0 {
-
-      textStorage.marklightTextProcessor.textColor = textStorage.marklightTextProcessor.textColor == .black ? .red : .black
-    }
-  }
     
     func scrollToCaret(_ textView: UITextView, animated: Bool) {
         var rect = textView.caretRect(for: textView.selectedTextRange!.end)
