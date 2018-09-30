@@ -322,7 +322,7 @@ public struct Marklight {
         }
         
         // We detect and process inline anchors (links)
-        Marklight.anchorInlineRegex.matches(string, range: paragraphRange) { (result) -> Void in
+        Marklight.anchorInlineRegex.matches(string, range: wholeRange) { (result) -> Void in
             guard let range = result?.range else { return }
             // styleApplier.addAttribute(.font, value: codeFont, range: range)
             
@@ -529,7 +529,7 @@ public struct Marklight {
         }
         
         // We detect and process inline links not formatted
-        Marklight.autolinkRegex.matches(string, range: paragraphRange) { (result) -> Void in
+        Marklight.autolinkRegex.matches(string, range: wholeRange) { (result) -> Void in
             guard let range = result?.range else { return }
             let substring = textStorageNSString.substring(with: range)
             guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
@@ -548,7 +548,7 @@ public struct Marklight {
         }
         
         // We detect and process inline mailto links not formatted
-        Marklight.autolinkEmailRegex.matches(string, range: paragraphRange) { (result) -> Void in
+        Marklight.autolinkEmailRegex.matches(string, range: wholeRange) { (result) -> Void in
             guard let range = result?.range else { return }
             let substring = textStorageNSString.substring(with: range)
             guard substring.lengthOfBytes(using: .utf8) > 0 else { return }
@@ -565,6 +565,21 @@ public struct Marklight {
                     styleApplier.addAttribute(.foregroundColor, value: hiddenColor, range: innerRange)
                 }
             }
+        }
+
+        Marklight.strikethroughRegex.matches(string, range: paragraphRange) { (result) -> Void in
+            guard let range = result?.range else { return }
+
+            let innerRange = NSRange(location: range.location + 2, length: range.length - 4)
+            styleApplier.addAttribute(.strikethroughStyle, value: NSUnderlineStyle.styleSingle.rawValue, range: innerRange)
+
+            let preRange = NSMakeRange(range.location, 2)
+            styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: preRange)
+            hideSyntaxIfNecessary(range: preRange)
+
+            let postRange = NSMakeRange(range.location + range.length - 2, 2)
+            styleApplier.addAttribute(.foregroundColor, value: Marklight.syntaxColor, range: postRange)
+            hideSyntaxIfNecessary(range: postRange)
         }
     }
     
@@ -715,6 +730,9 @@ public struct Marklight {
         ].joined(separator: "\n")
     
     public static let anchorRegex = MarklightRegex(pattern: anchorPattern, options: [.allowCommentsAndWhitespace, .dotMatchesLineSeparators])
+
+    fileprivate static let strikethroughPattern = "(~~)(?=\\S)(.+?)(?<=\\S)\\1"
+    public static let strikethroughRegex = MarklightRegex(pattern: strikethroughPattern, options: [.anchorsMatchLines])
     
     fileprivate static let opneningSquarePattern = [
         "(\\[)"
