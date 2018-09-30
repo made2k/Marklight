@@ -120,6 +120,7 @@ open class MarklightTextStorage: NSTextStorage, MarklightStyleApplier {
     public func resetMarklightTextAttributes(textSize: CGFloat, range: NSRange) {
         // Use `imp` directly instead of `self` to avoid changing the edited range
         // after attribute fixing, affecting the insertion point on macOS.
+        imp.removeAttribute(NSAttributedStringKey.strikethroughStyle, range: range)
         imp.removeAttribute(NSAttributedStringKey.foregroundColor, range: range)
         imp.addAttribute(NSAttributedStringKey.font, value: MarklightFont.systemFont(ofSize: textSize), range: range)
         imp.addAttribute(NSAttributedStringKey.paragraphStyle, value: NSParagraphStyle(), range: range)

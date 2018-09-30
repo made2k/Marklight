@@ -112,6 +112,14 @@ class ViewController: UIViewController, UITextViewDelegate {
             }
         }
     }
+
+  var changeCount: Int = 0
+  func textViewDidChange(_ textView: UITextView) {
+    changeCount += 1
+    if changeCount % 20 == 0 {
+      textStorage.marklightTextProcessor.textColor = textStorage.marklightTextProcessor.textColor == .black ? .red : .black
+    }
+  }
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange) -> Bool {
         print("Should interact with: \(URL)")
